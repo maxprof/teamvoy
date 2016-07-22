@@ -13,6 +13,10 @@ class TasksController < ApplicationController
 
   def new
     @task = Task.new
+    if !user_signed_in?
+      flash[:danger] = "You are not signed in"
+      redirect_to(:back)
+    end
   end
 
   def create

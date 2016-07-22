@@ -52,3 +52,4 @@ gem "slim-rails"
 gem 'simple_form'
 gem 'country-select'
 gem "paperclip-dropbox", ">= 1.1.7"
+

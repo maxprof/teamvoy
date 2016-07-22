@@ -5,9 +5,9 @@ div class="col-md-9"
   = @task.description
   br/
   - if user_signed_in? && (@task.user_id == current_user.id ||  @task_users != nil)
-    = link_to 'Edit', edit_task_path(@task), class:"btn btn-primary"
-    = link_to 'Destroy', @task, data: {:confirm => 'Are you sure?'}, :method => :delete, class:"btn btn-danger"
-    = link_to "Share task", '#data',  class:"btn btn-warning fancybox"
+    = link_to 'Edit', edit_task_path(@task), class:"btn btn-raised btn-primary"
+    = link_to 'Destroy', @task, data: {:confirm => 'Are you sure?'}, :method => :delete, class:"btn btn-raised btn-danger"
+    = link_to "Share task", '#data',  class:"btn btn-raised btn-warning fancybox"
 - if user_signed_in? && (@task.user_id == current_user.id ||  @task_users != nil)
   div class="hidden"
     div id="data"

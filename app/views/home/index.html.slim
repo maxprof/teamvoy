@@ -1,6 +1,10 @@
 .container
   .row
     h1.text-center All tasks
+    - if user_signed_in?
+      .col-md-3.col-md-offset-5.mb30
+        = link_to "Add new task", new_task_path, class:"btn btn-raised btn-primary"
+    .clearfix
     - @tasks.each do |task|
       - if user_signed_in? && (task.user_id == current_user.id ||  @task_users != nil)
         div class="hidden"
@@ -14,38 +18,37 @@
                 = collection_select( :task, :user_ids, User.all, :id, :email, {}, { :multiple => true } )
               .form-actions
                 = f.button :submit, "Submit"
-      .col-md-6
-        h3 Can manage
-        - user = task.user_id
-        - task_user = User.find(id = user).email
-        p
-          | Author: &nbsp
-          = task.author
-        p
-          | Last change: &nbsp
-          = task_user
-        p
-          - if !task.users.empty?
-            | Shared: &nbsp
-            - task.users.each do |user|
-              ul
-                li
-                  = user.email
-      .col-md-6
-        h3
-          = link_to task.title, task_path(task)
-        p
-          = task.description
-        .clearfix
-          - if user_signed_in? && (task.user_id == current_user.id ||  @task_users != nil)
-            = link_to 'Edit', edit_task_path(task), class:"btn btn-primary"
-            = link_to 'Destroy', task, data: {:confirm => 'Are you sure?'}, :method => :delete, class:"btn btn-danger"
-            = link_to "Share task", '#data',  class:"btn btn-warning fancybox"
-      hr/
+      .well.bs-component
+        .row
+          .col-md-6
+            h3 Can manage
+            - user = task.user_id
+            - task_user = User.find(id = user).email
+            p
+              | Author: &nbsp
+              = task.author
+            p
+              | Last change: &nbsp
+              = task_user
+            p
+              - if !task.users.empty?
+                | Shared: &nbsp
+                - task.users.each do |user|
+                  ul
+                    li
+                      = user.email
+          .col-md-6
+            h3
+              = link_to task.title, task_path(task)
+            p
+              = task.description
+            .clearfix
+              - if user_signed_in? && (task.author == current_user.email ||  @task_users != nil)
+                = link_to 'Edit', edit_task_path(task), class:"btn btn-raised btn-primary"
+                = link_to 'Destroy', task, data: {:confirm => 'Are you sure?'}, :method => :delete, class:"btn btn-raised btn-danger"
+                = link_to "Share task", '#data',  class:"btn btn-raised btn-warning fancybox"
       .clearfix
       br/
-    .col-md-3.col-md-offset-5
-      = link_to "Add new task", new_task_path, class:"btn btn-primary"
 javascript:
   $(document).ready(function() {
     $("a.fancybox").fancybox();
