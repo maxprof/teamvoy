@@ -1,4 +1,5 @@
 class HomeController < ApplicationController
-  helper_method :votes_count
-
+  def index
+    @tasks = Task.all
+  end
 end
