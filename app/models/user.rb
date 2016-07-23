@@ -1,7 +1,7 @@
 class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable, :confirmable,
-         :omniauthable, :omniauth_providers => [:vkontakte, :facebook, :twitter]
+         :omniauthable, :omniauth_providers => [:vkontakte ] #, :facebook, :twitter
 
   has_many :task_users
   has_many :tasks, through: :task_users

@@ -20,6 +20,6 @@ Devise.setup do |config|
       :lang => 'en',
       :image_size => 'original'
     }
-  config.omniauth :facebook, ENV['FACEBOOK_KEY'], ENV['FACEBOOK_SECRET']
-  config.omniauth :twitter, 'L1cBaWRJKsZwrFlMaWPexX24U', '70MyWBSsKvHri1C3IfQGS4jHuNH6GdPGOSbfDS6h1nhNT9C3rM'
+  # config.omniauth :facebook, ENV['FACEBOOK_KEY'], ENV['FACEBOOK_SECRET']
+  # config.omniauth :twitter, 'L1cBaWRJKsZwrFlMaWPexX24U', '70MyWBSsKvHri1C3IfQGS4jHuNH6GdPGOSbfDS6h1nhNT9C3rM'
 end
