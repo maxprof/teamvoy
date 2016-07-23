@@ -15,6 +15,7 @@
               = task.description
             .clearfix
               = render partial: "partials/manage_buttons", locals: { f:task }
+              = render partial: "partials/hidden_shared_form", locals: { var:task }
           hr/
       .clearfix
       br/

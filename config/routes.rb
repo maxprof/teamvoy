@@ -6,7 +6,7 @@ Rails.application.routes.draw do
   devise_for :users, :controllers => { :omniauth_callbacks => "callbacks", registrations: 'registrations' }
   get 'users/:id' => 'users#show', :as => :user
   resources :users, except: [:show]
-  resources :tasks
+  resources :tasks, except: [:index]
 
   root 'home#index'
   match "/404", :to => "errors#not_found", :via => :all

@@ -4,7 +4,6 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
   helper_method :check_users_tasks
 
-
   private
 
   def check_users_tasks
@@ -32,5 +31,6 @@ class ApplicationController < ActionController::Base
       # Combine tasks array
      @current_user_tasks = @user_author_tasks + @shared_user_tasks
     end
+
   end
 end

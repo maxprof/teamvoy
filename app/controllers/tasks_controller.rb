@@ -45,7 +45,7 @@ class TasksController < ApplicationController
   def destroy
     @task.destroy
     flash[:success] = "Task was successfully destroyed."
-    redirect_to questions_url
+    redirect_to root_path
   end
 
   private
