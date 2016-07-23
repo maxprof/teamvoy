@@ -14,7 +14,11 @@
  *= require fancybox
  *= require_tree .
  */
-
+div#flash_notice {
+    background-color: #f44336;
+    color: rgba(255, 255, 255, 0.84);
+    padding: 15px;
+}
 p.user_email {
     float: left;
     padding-top: 20px;

@@ -15,7 +15,7 @@ class TasksController < ApplicationController
     @task = Task.new
     if !user_signed_in?
       flash[:danger] = "You are not signed in"
-      redirect_to(:back)
+      redirect_to root_path
     end
   end
 

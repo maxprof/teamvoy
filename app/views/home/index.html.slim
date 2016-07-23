@@ -5,7 +5,7 @@
       .col-md-3.col-md-offset-5.mb30
         = link_to "Add new task", new_task_path, class:"btn btn-raised btn-primary"
     .clearfix
-    - @tasks.each do |task|
+    - @all_tasks.each do |task|
       - if user_signed_in? && (task.user_id == current_user.id ||  @task_users != nil)
         div class="hidden"
           div id="data"
@@ -43,10 +43,11 @@
             p
               = task.description
             .clearfix
-              - if user_signed_in? && (task.author == current_user.email ||  @task_users != nil)
-                = link_to 'Edit', edit_task_path(task), class:"btn btn-raised btn-primary"
-                = link_to 'Destroy', task, data: {:confirm => 'Are you sure?'}, :method => :delete, class:"btn btn-raised btn-danger"
-                = link_to "Share task", '#data',  class:"btn btn-raised btn-warning fancybox"
+              - @current_user_tasks.each do |user_task|
+                - if user_signed_in? && (user_task.id == task.id)
+                  = link_to 'Edit', edit_task_path(task), class:"btn btn-raised btn-primary"
+                  = link_to 'Destroy', task, data: {:confirm => 'Are you sure?'}, :method => :delete, class:"btn btn-raised btn-danger"
+                  = link_to "Share task", '#data',  class:"btn btn-raised btn-warning fancybox"
       .clearfix
       br/
 javascript:
