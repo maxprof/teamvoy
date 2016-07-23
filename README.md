@@ -1,11 +1,15 @@
 ## Getting Started
 
   $ git clone https://github.com/maxprof/teamvoy.git
+  
   $ cd teamvoy
+  
   $ rake db:migrate
+  
   $ rails s
 
   Run with `--help` or `-h` for options.
+  
   Using a browser, go to `http://localhost:3000` and you'll see main page
 
 ## Main page
