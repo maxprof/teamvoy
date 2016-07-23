@@ -1,5 +1,52 @@
-require 'rails_helper'
+require 'spec_helper'
 
-RSpec.describe TasksController, type: :controller do
+RSpec.describe TasksController do
+
+  describe "show action" do
+    it "Should render show page" do
+      sign_in FactoryGirl.create(:user)
+      task = FactoryGirl.create(:task)
+      get :show, {id: task.id}
+      response.should render_template('show')
+    end
+
+    it "renders errors page if task not found" do
+      get :show, {id: 0}
+      response.status.should == 200
+    end
+  end
+
+  describe "create action" do
+    it "Should redirects to new page if validation faild" do
+      sign_in FactoryGirl.create(:user)
+      post :create, task: {title: "", description:""}
+      response.should render_template('new')
+    end
+
+    it "Should redirects show page if validation pass" do
+      sign_in FactoryGirl.create(:user)
+      post :create, task: {title: "Test title",
+            description:"asdasdasdasdasdasdasdasdasdasd"}
+      response.should redirect_to(assigns(:task))
+    end
+  end
+
+  describe "Destroy action" do
+    it "redirects to questions page when is destroyed successfully" do
+      sign_in FactoryGirl.create(:user)
+      task = FactoryGirl.create(:task)
+      delete :destroy, id: task.id
+    response.should redirect_to(root_path)
+    end
+
+    it "redirects to root_path if destroy not current user" do
+      user = FactoryGirl.create(:user)
+      user2 = FactoryGirl.create(:user)
+      task = FactoryGirl.create(:task, user_id: user.id)
+      sign_in user2
+      delete :destroy, id: task.id
+    response.should redirect_to(root_path)
+    end
+  end
 
 end

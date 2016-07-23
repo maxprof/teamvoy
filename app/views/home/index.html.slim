@@ -3,9 +3,6 @@
     h1.text-center All tasks
     .clearfix
     - @all_tasks.each do |task|
-      - if user_signed_in? && (task.user_id == current_user.id ||  @task_users != nil)
-        = render partial: "partials/hidden_shared_form", locals: { var:task }
-
       .well.bs-component
         .row
           .col-md-6
@@ -21,11 +18,13 @@
                 - @current_user_tasks.each do |user_task|
                   - if user_task.id == task.id
                     = render partial: "partials/manage_buttons", locals: { f:task }
+                    = render partial: "partials/hidden_shared_form", locals: { var:task }
       .clearfix
       br/
 javascript:
   $(document).ready(function() {
     $("a.fancybox").fancybox();
   });
+
 
 

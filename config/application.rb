@@ -10,7 +10,7 @@ module Myappdigital
   class Application < Rails::Application
 
     config.assets.precompile += %w( .svg .eot .woff .ttf .png .jpg .gif)
-
+    config.exceptions_app = self.routes
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded.

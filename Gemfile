@@ -14,6 +14,7 @@ group :development, :test do
   gem 'rspec-rails'
   gem 'traceroute'
   gem 'rails_best_practices'
+  gem 'faker'
 end
 group :test do
   gem 'factory_girl_rails'
@@ -22,7 +23,7 @@ group :test do
   gem 'email_spec'
   gem 'timecop'
   gem 'launchy'
-  gem 'cucumber-rails'
+  gem 'cucumber-rails',  :require => false
 end
 group :development do
   gem 'web-console', '~> 2.0'
