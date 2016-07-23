@@ -16,19 +16,7 @@ class UsersController < ApplicationController
   end
 
   def show
-    @tasks = TaskUser.where(user_id: current_user.id)
-    @current_user_tasks = []
-    @tasks.each do |task|
-      @current_user_task_test = Task.where(id: task.task_id)
-      @current_user_tasks << @current_user_task_test
-      # @current_user_tasks << Task.where(id: task.task_id)
-    end
-    @current_user_tasks
-    @myTasks = Task.where(user_id: current_user.id)
-    if @myTasks.empty? ||@current_user_tasks.empty?
-      flash[:warning] = "You don't have tasks"
-      redirect_to(:back)
-    end
+    check_users_tasks
   end
 
   def edit

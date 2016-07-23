@@ -1,53 +1,26 @@
 .container
   .row
     h1.text-center All tasks
-    - if user_signed_in?
-      .col-md-3.col-md-offset-5.mb30
-        = link_to "Add new task", new_task_path, class:"btn btn-raised btn-primary"
     .clearfix
     - @all_tasks.each do |task|
       - if user_signed_in? && (task.user_id == current_user.id ||  @task_users != nil)
-        div class="hidden"
-          div id="data"
-            = simple_form_for task do |f|
-              = f.error_notification
-              .form-inputs
-                = f.hidden_field :user_id, :value => current_user.id
-                = f.hidden_field :title, class:"form-control"
-                = f.hidden_field :description, class:"form-control"
-                = collection_select( :task, :user_ids, User.all, :id, :email, {}, { :multiple => true } )
-              .form-actions
-                = f.button :submit, "Submit"
+        = render partial: "partials/hidden_shared_form", locals: { var:task }
+
       .well.bs-component
         .row
           .col-md-6
             h3 Can manage
-            - user = task.user_id
-            - task_user = User.find(id = user).email
-            p
-              | Author: &nbsp
-              = task.author
-            p
-              | Last change: &nbsp
-              = task_user
-            p
-              - if !task.users.empty?
-                | Shared: &nbsp
-                - task.users.each do |user|
-                  ul
-                    li
-                      = user.email
+            = render partial: "partials/who_can_manage", locals: { f:task }
           .col-md-6
             h3
               = link_to task.title, task_path(task)
             p
               = task.description
             .clearfix
-              - @current_user_tasks.each do |user_task|
-                - if user_signed_in? && (user_task.id == task.id)
-                  = link_to 'Edit', edit_task_path(task), class:"btn btn-raised btn-primary"
-                  = link_to 'Destroy', task, data: {:confirm => 'Are you sure?'}, :method => :delete, class:"btn btn-raised btn-danger"
-                  = link_to "Share task", '#data',  class:"btn btn-raised btn-warning fancybox"
+              - if user_signed_in?
+                - @current_user_tasks.each do |user_task|
+                  - if user_task.id == task.id
+                    = render partial: "partials/manage_buttons", locals: { f:task }
       .clearfix
       br/
 javascript:

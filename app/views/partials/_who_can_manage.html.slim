@@ -1,0 +1,15 @@
+- user = f.user_id
+- task_user = User.find(id = user).email
+p
+  | Author: &nbsp
+  = f.author
+p
+  | Last change: &nbsp
+  = task_user
+p
+  - if !f.users.empty?
+    | Shared: &nbsp
+    - f.users.each do |user|
+      ul
+        li
+          = user.email

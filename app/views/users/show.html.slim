@@ -1,38 +1,20 @@
 .container
   .row
     h1.text-center My tasks
-    .col-md-3.col-md-offset-5.mb30
-      = link_to "Add new task", new_task_path, class:"btn btn-raised btn-primary text-center"
     .clearfix
-    - @myTasks.each do |task|
+    - @current_user_tasks.each do |task|
       .well.bs-component
         .row
           .col-md-6.pull-right
             h3 Can manage
-            - user = task.user_id
-            - task_user = User.find(id = user).email
-            p
-              | Author: &nbsp
-              = task.author
-            p
-              | Last change: &nbsp
-              = task_user
-            p
-              - if !task.users.empty?
-                | Shared: &nbsp
-                - task.users.each do |user|
-                  ul
-                    li
-                      = user.email
+            = render partial: "partials/who_can_manage", locals: { f:task }
           .col-md-6
             h3
               = link_to task.title, task_path(task)
             p
               = task.description
             .clearfix
-              = link_to 'Edit', edit_task_path(task), class:"btn btn-raised btn-primary"
-              = link_to 'Destroy', task, data: {:confirm => 'Are you sure?'}, :method => :delete, class:"btn btn-raised btn-danger"
-              = link_to "Share task", '#data',  class:"btn btn-raised btn-warning fancybox"
+              = render partial: "partials/manage_buttons", locals: { f:task }
           hr/
       .clearfix
       br/
@@ -40,6 +22,4 @@ javascript:
   $(document).ready(function() {
     $("a.fancybox").fancybox();
   });
-
-
 
