@@ -1,29 +1,37 @@
 .container
   .row
-    = link_to "Add new task", "#new_task", class:"fancybox btn btn-primary"
-    .hidden
-      #new_task
-        = form_for @task, remote: true do |f|
-          .field
-            = f.hidden_field :user_id, :value => current_user.id
-          .field
-            = f.label :title
-            = f.text_field :title, class:"form-control task_title"
-          .field
-            = f.label :description
-            = f.text_area :description, class:"form-control task_description"
-          .field
-            = f.label "Choose user"
-            br/
-            = collection_select( :task, :user_ids, User.all, :id, :email, {}, { :multiple => true } )
-          .actions = f.submit class:"btn btn-raised btn-primary"
-
+    - if user_signed_in?
+      = link_to "Add new task with AJAX", "#new_task", class:"fancybox btn btn-primary"
+      .hidden
+        #new_task
+          = form_for @task, remote: true do |f|
+            .field
+              = f.hidden_field :user_id, :value => current_user.id
+            .field
+              = f.label :title
+              = f.text_field :title, class:"form-control task_title"
+            .field
+              = f.label :description
+              = f.text_area :description, class:"form-control task_description"
+            .field
+              = f.label "Choose user"
+              br/
+              = collection_select( :task, :user_ids, User.all, :id, :email, {}, { :multiple => true } )
+            .actions = f.submit class:"btn btn-raised btn-primary"
     h1.text-center All tasks
     .clearfix
     #tasks_container
       - @all_tasks.each do |task|
         div class="task_block" id="task_#{task.id}"
           = render task, locals: { task:task }
+          .clearfix
+          - if user_signed_in?
+            - @current_user_tasks.each do |user_task|
+              - if user_task.id == task.id
+                .user_manage_buttons
+                  = render partial: "partials/manage_buttons", locals: { f:task }
+                  = render partial: "partials/hidden_shared_form", locals: { var:task }
+                  = render partial: "partials/hidden_edit_form", locals: { var:task }
       .clearfix
       br/
 
