@@ -22,12 +22,17 @@ class TasksController < ApplicationController
   def create
     @task = Task.new(task_params)
     @task.author = current_user.email
-    if @task.save
-      flash[:success]= 'Task was successfully created.'
-      redirect_to @task
-    else
-      render 'new'
-    end
+      respond_to do |format|
+        if @task.save
+          format.html { redirect_to @task, notice: 'Task was successfully created.' }
+          format.json { render :show, status: :created, location: @task }
+          format.js
+        else
+          format.html { render :new }
+          format.json { render json: @task.errors, status: :unprocessable_entity }
+          format.js
+        end
+      end
   end
 
   def edit
@@ -50,9 +55,10 @@ class TasksController < ApplicationController
 
   private
 
-  def check_tag_users
-    @task_users = TaskUser.find_by(user_id: current_user.id, task_id: @task.id)
-  end
+    def check_tag_users
+      @task_users = TaskUser.find_by(user_id: current_user.id, task_id: @task.id)
+    end
+
     def check_rules
       if user_signed_in?
         @user = current_user

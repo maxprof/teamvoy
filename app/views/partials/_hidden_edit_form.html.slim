@@ -9,4 +9,3 @@ div class="hidden"
         = collection_select( :task, :user_ids, User.all, :id, :email, {}, { :multiple => true } )
       .form-actions
         = f.button :submit, "Submit"
-

@@ -8,7 +8,7 @@ class ApplicationController < ActionController::Base
 
   def check_users_tasks
     # all tasks
-    @all_tasks = Task.all
+    @all_tasks = Task.all.order('created_at DESC')
     # tasks where current user - author
     if user_signed_in?
       @user_author_tasks = Task.where(author: current_user.email)

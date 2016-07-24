@@ -14,6 +14,32 @@
  *= require fancybox
  *= require_tree .
  */
+ a.fancybox.btn.btn-primary:hover{
+  border: none;
+  background-color: #FF5722;
+  transition: 1s;
+  margin-left: 44%;
+ }
+ a.fancybox.btn.btn-primary {
+  border: none;
+  color: #fff;
+  padding: 10px 25px;
+  font-weight: bold;
+  transition: 1s;
+  margin-left: 44%;
+
+ }
+ h1.text-center.not_found {
+     font-size: 74px;
+     margin-top: 25%;
+ }
+ input#user_remember_me {
+     width: 20px!important;
+     height: 20px!important;
+     opacity: 1!important;
+     margin-left: -5px!important;
+     z-index: 1!important;
+ }
  .alert.alert-alert {
      background-color: #03a9f4;
  }
