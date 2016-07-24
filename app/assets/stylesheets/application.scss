@@ -22,13 +22,13 @@
  .task_description {
      padding-bottom: 40px;
  }
- a.fancybox.btn.btn-primary:hover{
+ a.fancybox.btn.btn-primary.task_create:hover{
   border: none;
   background-color: #FF5722;
   transition: 1s;
   margin-left: 41%;
  }
- a.fancybox.btn.btn-primary {
+ a.fancybox.btn.btn-primary.task_create {
   border: none;
   color: #fff;
   padding: 10px 25px;

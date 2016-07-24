@@ -18,6 +18,5 @@
     = f.label "Choose user"
     br/
     = collection_select( :task, :user_ids, User.all, :id, :email, {}, { :multiple => true } )
-
   .actions = f.submit class:"btn btn-raised btn-primary"
 
