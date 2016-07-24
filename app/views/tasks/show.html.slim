@@ -10,9 +10,17 @@
       br/
       - if user_signed_in? && (@task.author == current_user.email ||  @task_users != nil)
         = render partial: "partials/manage_buttons", locals: { f:@task }
-    - if user_signed_in? && (@task.author == current_user.email ||  @task_users != nil)
-      = render partial: "partials/hidden_shared_form", locals: { var:@task }
-
+        div class="hidden"
+          div id="data_#{@task.id}"
+            = simple_form_for @task do |f|
+              = f.error_notification
+              .form-inputs
+                = f.hidden_field :user_id, :value => current_user.id
+                = f.hidden_field :title, class:"form-control"
+                = f.hidden_field :description, class:"form-control"
+                = collection_select( :task, :user_ids, User.all, :id, :email, {}, { :multiple => true } )
+              .form-actions
+                = f.button :submit, "Submit"
 
 javascript:
   $(document).ready(function() {
