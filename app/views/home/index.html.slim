@@ -19,32 +19,33 @@
     .clearfix
     #tasks_container
       - @all_tasks.each do |task|
-        .well.bs-component
-          .row
-            .col-md-6
-              h3 Can manage
-              = render partial: "partials/who_can_manage", locals: { f:task }
-            .col-md-6
-              h3
-                = link_to task.title, task_path(task)
-              p
-                = task.description
-              .clearfix
-                - if user_signed_in?
-                  - @current_user_tasks.each do |user_task|
-                    - if user_task.id == task.id
-                      = render partial: "partials/manage_buttons", locals: { f:task }
-                      div class="hidden"
-                        div id="data_#{user_task.id}"
-                          = simple_form_for user_task do |f|
-                            = f.error_notification
-                            .form-inputs
-                              = f.hidden_field :user_id, :value => current_user.id
-                              = f.hidden_field :title, class:"form-control"
-                              = f.hidden_field :description, class:"form-control"
-                              = collection_select( :task, :user_ids, User.all, :id, :email, {}, { :multiple => true } )
-                            .form-actions
-                              = f.button :submit, "Submit"
+        div id="#{task.id}"
+          .well.bs-component
+            .row
+              .col-md-6
+                h3 Can manage
+                = render partial: "partials/who_can_manage", locals: { f:task }
+              .col-md-6
+                h3
+                  = link_to task.title, task_path(task)
+                p
+                  = task.description
+                .clearfix
+                  - if user_signed_in?
+                    - @current_user_tasks.each do |user_task|
+                      - if user_task.id == task.id
+                        = render partial: "partials/manage_buttons", locals: { f:task }
+                        div class="hidden"
+                          div id="data_#{user_task.id}"
+                            = simple_form_for user_task do |f|
+                              = f.error_notification
+                              .form-inputs
+                                = f.hidden_field :user_id, :value => current_user.id
+                                = f.hidden_field :title, class:"form-control"
+                                = f.hidden_field :description, class:"form-control"
+                                = collection_select( :task, :user_ids, User.all, :id, :email, {}, { :multiple => true } )
+                              .form-actions
+                                = f.button :submit, "Submit"
 
 
       .clearfix
