@@ -32,7 +32,7 @@ RSpec.describe TasksController do
   end
 
   describe "Destroy action" do
-    it "redirects to questions page when is destroyed successfully" do
+    it "redirects to task page when is destroyed successfully" do
       sign_in FactoryGirl.create(:user)
       task = FactoryGirl.create(:task)
       delete :destroy, id: task.id
@@ -46,6 +46,23 @@ RSpec.describe TasksController do
       sign_in user2
       delete :destroy, id: task.id
     response.should redirect_to(root_path)
+    end
+  end
+
+  describe "PUT update" do
+    it "redirects to task page when is updated successfully" do
+      sign_in FactoryGirl.create(:user)
+      task = FactoryGirl.create(:task)
+      put :update, {id: task, task: FactoryGirl.attributes_for(:task, :tetle=>"Update attributes")}
+      response.should redirect_to(assigns(:task))
+    end
+
+    it "redirects to root path when updates are not current user " do
+      sign_in FactoryGirl.create(:user)
+      task = FactoryGirl.create(:task)
+      sign_in FactoryGirl.create(:user)
+      put :update, {id: task, task: FactoryGirl.attributes_for(:task, :tetle=>"Update attributes")}
+      response.should redirect_to(assigns(root_path))
     end
   end
 
